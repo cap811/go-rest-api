@@ -5,12 +5,14 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func Fille() {
+func Routes() *gin.Engine {
 	r := gin.Default()
-
-	// Routes
-	r.GET("/api/books", controllers.ShowAllBooks)
-	r.GET("/api/books/:id", controllers.FindBook)
-	r.POST("/api/books/", controllers.CreateBooks)
-	r.POST("/api/books/:id", controllers.UpdateBooks)
+	api := r.Group("/api")
+	{
+		api.GET("/books", controllers.ShowAllBooks)
+		api.GET("/books/:id", controllers.FindBook)
+		api.POST("/books", controllers.CreateBooks)
+		api.POST("/books/:id", controllers.UpdateBooks)
+	}
+	return r
 }

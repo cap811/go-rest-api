@@ -3,7 +3,6 @@ package main
 import (
 	"github.com/cap811/go-rest-api/initializers"
 	"github.com/cap811/go-rest-api/routers"
-	"github.com/gin-gonic/gin"
 )
 
 func init() {
@@ -12,8 +11,7 @@ func init() {
 }
 
 func main() {
-	r := gin.Default()
-	routers.Fille()
+	r := routers.Routes()
 	err := r.Run()
 	if err != nil {
 		return
