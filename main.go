@@ -1,7 +1,8 @@
 package main
 
 import (
-	"example.com/go-rest-api/initializers"
+	"github.com/cap811/go-rest-api/initializers"
+	"github.com/cap811/go-rest-api/routers"
 	"github.com/gin-gonic/gin"
 )
 
@@ -11,11 +12,10 @@ func init() {
 }
 
 func main() {
-	router := gin.Default()
-	router.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		})
-	})
-	router.Run()
+	r := gin.Default()
+	routers.Fille()
+	err := r.Run()
+	if err != nil {
+		return
+	}
 }

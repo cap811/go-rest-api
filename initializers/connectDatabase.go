@@ -1,6 +1,7 @@
 package initializers
 
 import (
+	"github.com/cap811/go-rest-api/models"
 	"log"
 	"os"
 
@@ -18,4 +19,5 @@ func ConnectDB() {
 	if err != nil {
 		log.Fatal("failed to connect to db")
 	}
+	DB.AutoMigrate(&models.Book{})
 }
