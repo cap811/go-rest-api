@@ -14,7 +14,10 @@ var DB *gorm.DB
 func ConnectDB() {
 	var err error
 	dsn := os.Getenv("DB_URL")
-	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{
+		SkipDefaultTransaction: true,
+		PrepareStmt:            true,
+	})
 
 	if err != nil {
 		log.Fatal("failed to connect to db")

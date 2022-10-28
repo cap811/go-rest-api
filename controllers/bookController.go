@@ -58,3 +58,13 @@ func UpdateBooks(c *gin.Context) {
 
 	c.IndentedJSON(http.StatusOK, gin.H{"data": book})
 }
+
+// DELETE request
+// Delete book
+
+func DeleteBooks(c *gin.Context) {
+	var book []models.Book
+	id := c.Param("id")
+	initializers.DB.Delete(&book, id)
+	c.IndentedJSON(http.StatusOK, gin.H{"data": book})
+}
