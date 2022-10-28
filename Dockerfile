@@ -1,22 +1,17 @@
-# syntax=docker/dockerfile:1
+FROM golang:alpine
 
-FROM golang:latest
+RUN mkdir /app
 
 WORKDIR /app
 
-COPY go.mod ./
+ADD go.mod .
+ADD go.sum .
 
-COPY go.sum ./
+RUN go mod tidy
+ADD . .
 
-RUN go mod download
-
-COPY *.go ./
-
-RUN go build -o /go-rest-api
+RUN go get github.com/githubnemo/CompileDaemon
 
 EXPOSE 8080
 
-CMD [ "/go-rest-api" ]
-
-RUN go run main.go
-
+ENTRYPOINT go run main.go
