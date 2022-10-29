@@ -16,7 +16,7 @@ func FindBook(c *gin.Context) {
 	var book []models.Book
 	id := c.Param("id")
 	initializers.DB.First(&book, id)
-	c.IndentedJSON(http.StatusOK, gin.H{"data": book})
+	c.JSON(http.StatusOK, gin.H{"data": book})
 }
 
 // GET Request
@@ -25,7 +25,7 @@ func FindBook(c *gin.Context) {
 func ShowAllBooks(c *gin.Context) {
 	var books []models.Book
 	initializers.DB.Find(&books)
-	c.IndentedJSON(http.StatusOK, gin.H{"data": books})
+	c.JSON(http.StatusOK, books)
 }
 
 // POST Request
@@ -40,7 +40,7 @@ func CreateBooks(c *gin.Context) {
 	book := models.Book{Title: input.Title, Author: input.Author, Year: input.Year}
 	initializers.DB.Create(&book)
 
-	c.IndentedJSON(http.StatusOK, gin.H{"data": book})
+	c.JSON(http.StatusOK, gin.H{"": book})
 }
 
 // POST Request
@@ -50,13 +50,13 @@ func UpdateBooks(c *gin.Context) {
 	var input models.UpdateBookInput
 	id := c.Param("id")
 	if err := c.ShouldBindJSON(&input); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{"": err.Error()})
 		return
 	}
 	book := models.Book{Title: input.Title, Author: input.Author, Year: input.Year}
 	initializers.DB.Where(id).Updates(&book)
 
-	c.IndentedJSON(http.StatusOK, gin.H{"data": book})
+	c.JSON(http.StatusOK, gin.H{"": book})
 }
 
 // DELETE request
@@ -66,5 +66,5 @@ func DeleteBooks(c *gin.Context) {
 	var book []models.Book
 	id := c.Param("id")
 	initializers.DB.Delete(&book, id)
-	c.IndentedJSON(http.StatusOK, gin.H{"data": book})
+	c.JSON(http.StatusOK, gin.H{"": book})
 }
